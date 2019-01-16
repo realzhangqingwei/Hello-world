@@ -11,7 +11,8 @@ pipeline {
             }
         }
         post {     
-              success {                                                                                                                                                                      
+              success { 
+              echo '构建成功'
               mail to: 'legend_zhang@adsame.com',
               subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
               body: "Something is wrong with ${env.BUILD_URL}"

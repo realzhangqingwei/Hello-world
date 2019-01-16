@@ -8,8 +8,8 @@ pipeline {
                     echo "Multiline shell steps works too"
                     ls -lah
                 '''
-                sh '这是第一句测试'
-                sh '这是第二句测试'
+                sh 'echo "这是第一句测试"'
+                sh 'echo "这是第二句测试"'
             }
         }
     }

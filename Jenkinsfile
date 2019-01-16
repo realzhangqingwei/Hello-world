@@ -1,22 +1,35 @@
+
+Jenkinsfile (Declarative Pipeline)
+
 pipeline {
     agent any
     stages {
-        stage('Build') {
+        stage('No-op') {
             steps {
-                sh 'echo "Hello World"'
-                sh '''
-                    echo "Multiline shell steps works too"
-                    ls -lah
-                '''
+                sh 'ls'
             }
         }
-        post {     
-              success { 
-              echo '构建成功'
-              mail to: 'legend_zhang@adsame.com',
-              subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
-              body: "Something is wrong with ${env.BUILD_URL}"
-            }              
-         }         
+    }
+    post {
+        always {
+            echo 'One way or another, I have finished'
+            deleteDir() /* clean up our workspace */
+        }
+        success {
+            echo 'I succeeeded!'
+            mail to: 'legend_zhang@adsame.com',
+            subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+            body: "Something is wrong with ${env.BUILD_URL}"
+        }
+        unstable {
+            echo 'I am unstable :/'
+        }
+        failure {
+            echo 'I failed :('
+        }
+        changed {
+            echo 'Things were different before...'
+        }
     }
 }
+

@@ -8,6 +8,8 @@ pipeline {
                     echo "Multiline shell steps works too"
                     ls -lah
                 '''
+                sh 'netstat -tunlp'
+                sh 'free -m'
             }
         }
     }

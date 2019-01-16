@@ -8,9 +8,14 @@ pipeline {
                     echo "Multiline shell steps works too"
                     ls -lah
                 '''
-                sh 'echo "这是第一句测试"'
-                sh 'echo "这是第二句测试"'
             }
         }
+        post {     
+              success {                                                                                                                                                                      
+              mail to: 'legend_zhang@adsame.com',
+              subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+              body: "Something is wrong with ${env.BUILD_URL}"
+            }              
+         }         
     }
 }
